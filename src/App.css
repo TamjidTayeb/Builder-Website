@@ -22,6 +22,28 @@
   font-size: large;
 }
 
+.ButtonStyle {
+  background-color: #ffffff;
+  /* font-family: 'inherit', */
+  border: 1px solid;
+  padding: 8px;
+  cursor: pointer;
+}
+
+.ButtonStyle:hover {
+  border: 1px solid blue;
+  box-shadow: 0 2px 3px #ccc;
+  background-color: #eeeeee;
+
+
+}
+
+.ButtonStyle:active {
+  background-color: green;
+
+
+}
+
 @keyframes App-logo-spin {
   from { transform: rotate(0deg); }
   to { transform: rotate(360deg); }
