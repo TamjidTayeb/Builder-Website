@@ -41,16 +41,11 @@ class App extends Component {
 
   render() { 
   
+    let persons = null;
 
-
-    return (
-      <div className="App">
-        <h1> This is a react App! </h1>
-        <p>working or nah </p>
-        <button  className="ButtonStyle" onClick={this.togglePersonHandler}>Switch Name</button>
-        {
-          this.state.showPersons ?
-          <div>
+    if (this.state.showPersons) {
+      persons = (
+        <div>
           <Person 
             name={this.state.persons[0].name}
             age ={this.state.persons[0].age}
@@ -59,10 +54,19 @@ class App extends Component {
             name={this.state.persons[1].name}
             age ={this.state.persons[1].age}
             changed = {this.changeNameHandler} > My Hobbies: futbol</Person>
-          <Person name={this.state.persons[2].name} age ={this.state.persons[2].age}> My Hobbies: eating</Person>
-          </div> : null
-        }
+          <Person 
+            name={this.state.persons[2].name}
+            age ={this.state.persons[2].age}> My Hobbies: eating</Person>
+          </div>
+      );
+    }
 
+    return (
+      <div className="App">
+        <h1> This is a react App! </h1>
+        <p>working or nah </p>
+        <button  className="ButtonStyle" onClick={this.togglePersonHandler}>Switch Name</button>
+        {persons}
       </div>
     );
   }
