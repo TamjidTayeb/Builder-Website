@@ -6,9 +6,9 @@ import Person from './Person/Person';
 class App extends Component {
   state = {
     persons: [
-      { name: 'Max', age: 28},
-      {name: 'Manu', age: 29},
-      {name: 'Telaviv', age: 20}
+      {id: 1, name: 'Max', age: 28},
+      {id: 2, name: 'Manu', age: 29},
+      {id: 3, name: 'Telaviv', age: 20}
     ],
     showPersons: false
   }
@@ -23,14 +23,25 @@ class App extends Component {
     ]})
   }
 
-  changeNameHandler = (event) => {
-    console.log('was clicked!');
-    //donttdo this  this.state.persons[0] = 'Maximillian';
-    this.setState({persons: [
-      { name: 'Max', age: 29},
-      {name: event.target.value, age: 30},
-      {name: 'Telaviv', age: 21}
-    ]})
+  changeNameHandler = (event, id) => {
+    const personIndex = this.state.persons.findIndex(p => {
+      return p.id === id;
+    });
+
+    const person = {
+        //create copy of person object we want
+        ...this.state.persons[personIndex]
+    };
+
+    //store user input (new name)
+    person.name = event.target.value;
+
+    //create copy of persons array
+    const persons = [...this.state.persons];
+    //update copy of persons array with modified person object
+    persons[personIndex] = person;
+
+    this.setState({persons: persons})
   }
 
   togglePersonHandler = () => {
@@ -40,7 +51,9 @@ class App extends Component {
   }
 
   deletePersonHandler = (index) => {
+    //create copy of persons array
     const persons = this.state.persons.slice();
+    //splice (cut out) current item from array
     persons.splice(index, 1);
     this.setState({persons: persons})
   }
@@ -49,6 +62,7 @@ class App extends Component {
   
     let persons = null;
 
+    //before rendering componenets check if persons componenets should be shown or not 
     if (this.state.showPersons) {
       persons = (
         <div>
@@ -56,7 +70,9 @@ class App extends Component {
             return <Person 
               name={person.name} 
               age={person.age}
-              click={() => this.deletePersonHandler(index)}/>
+              click={() => this.deletePersonHandler(index)}
+              key={person.id}
+              changed={(event) => this.changeNameHandler(event, person.id)}/>
           })}
           </div>
       );
@@ -66,7 +82,7 @@ class App extends Component {
       <div className="App">
         <h1> This is a react App! </h1>
         <p>working or nah </p>
-        <button  className="ButtonStyle" onClick={this.togglePersonHandler}>Switch Name</button>
+        <button  className="ButtonStyle" onClick={this.togglePersonHandler}>Click me!</button>
         {persons}
       </div>
     );
