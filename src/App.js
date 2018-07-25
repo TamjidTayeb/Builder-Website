@@ -15,7 +15,7 @@ class App extends Component {
 
   switchNameHandler = (newName) => {
     console.log('was clicked!');
-    //donttdo this  this.state.persons[0] = 'Maximillian';
+    //always use this.setstate with mutating state
     this.setState({persons: [
       { name: newName, age: 29},
       {name: 'Manu', age: 30},
@@ -59,7 +59,7 @@ class App extends Component {
   }
 
   render() { 
-  
+    //by default dont show persons
     let persons = null;
 
     //before rendering componenets check if persons componenets should be shown or not 
@@ -81,7 +81,7 @@ class App extends Component {
     return (
       <div className="App">
         <h1> This is a react App! </h1>
-        <p>working or nah </p>
+        <h2>working or nah </h2>
         <button  className="ButtonStyle" onClick={this.togglePersonHandler}>Click me!</button>
         {persons}
       </div>
